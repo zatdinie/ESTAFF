@@ -29,8 +29,8 @@ namespace ESTAFF.Models.ViewModels
         // week, or a day in the month.
         public DateTime TargetDate { get; set; }
 
-        public DateTime PeriodStart { get; set; }
-        public DateTime PeriodEnd { get; set; }
+        public DateTime StartOfTheMonth { get; set; }
+        public DateTime EndOfTheMonth { get; set; }
         public DateTime PrevDate { get; set; }
         public DateTime NextDate { get; set; }
 
@@ -90,8 +90,8 @@ namespace ESTAFF.Models.ViewModels
         {
             get
             {
-                return PeriodStart.Date <= DateTime.Today
-                    && DateTime.Today <= PeriodEnd.Date;
+                return StartOfTheMonth.Date <= DateTime.Today
+                    && DateTime.Today <= EndOfTheMonth.Date;
             }
         }
 
@@ -108,8 +108,8 @@ namespace ESTAFF.Models.ViewModels
                 // The month is repeated on both halves so a week running
                 // across a month end reads correctly: "27 Dec – 02 Jan 2027",
                 // not "27 – 02 Jan 2027".
-                return PeriodStart.ToString("dd MMM") + " – "
-                    + PeriodEnd.ToString("dd MMM yyyy");
+                return StartOfTheMonth.ToString("dd MMM") + " – "
+                    + EndOfTheMonth.ToString("dd MMM yyyy");
             }
         }
 

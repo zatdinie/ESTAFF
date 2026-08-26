@@ -683,15 +683,15 @@ namespace ESTAFF.Controllers
             view = NormaliseCalendarView(view);
 
             var target = (date?.Date ?? DateTime.Today);
-            DateTime periodStart, periodEnd;
-            CalendarPeriod(view, target, out periodStart, out periodEnd);
+            DateTime startOfTheMonth, endOfTheMonth;
+            CalendarPeriod(view, target, out startOfTheMonth, out endOfTheMonth);
 
             var vm = new AdminCalendarViewModel
             {
                 View = view,
                 TargetDate = target,
-                PeriodStart = periodStart,
-                PeriodEnd = periodEnd,
+                StartOfTheMonth = startOfTheMonth,
+                EndOfTheMonth = endOfTheMonth,
                 PlantId = plantId,
                 EmployeeId = employeeId,
                 Status = status,
@@ -720,10 +720,10 @@ namespace ESTAFF.Controllers
             // The whole of the last day, not midnight on it: DueDate is a
             // DATETIME and a task saved with a time on it would fall outside
             // the frame it is plainly inside.
-            var endOfPeriod = periodEnd.AddDays(1).AddTicks(-1);
+            var endOfPeriod = endOfTheMonth.AddDays(1).AddTicks(-1);
 
             var query = TaskQuery()
-                .Where(t => t.DueDate >= periodStart
+                .Where(t => t.DueDate >= startOfTheMonth
                          && t.DueDate <= endOfPeriod);
 
             if (!string.IsNullOrEmpty(employeeId))
@@ -751,7 +751,7 @@ namespace ESTAFF.Controllers
                 .GroupBy(i => i.Task.DueDate.Date)
                 .ToDictionary(g => g.Key, g => g.ToList());
 
-            for (var d = periodStart; d <= periodEnd; d = d.AddDays(1))
+            for (var d = startOfTheMonth; d <= endOfTheMonth; d = d.AddDays(1))
             {
                 vm.Days.Add(new CalendarDayViewModel
                 {
