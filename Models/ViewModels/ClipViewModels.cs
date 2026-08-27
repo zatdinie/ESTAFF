@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
 
-namespace ESTAFF.Models.ViewModels
+namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
 {
     // ClipItemKind lives in Models.Data: it is written to TaskItem, not just
     // displayed.

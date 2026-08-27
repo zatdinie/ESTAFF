@@ -5,16 +5,16 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
-using TaskStatus = ESTAFF.Models.Data.TaskStatus;
+using TaskStatus = EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using ESTAFF.Filters;
-using ESTAFF.Models.Data;
-using ESTAFF.Models.ViewModels;
-using ESTAFF.Services;
+using EHS_PORTAL.Areas.ESTAFF.Filters;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels;
+using EHS_PORTAL.Areas.ESTAFF.Services;
 
-namespace ESTAFF.Controllers
+namespace EHS_PORTAL.Areas.ESTAFF.Controllers
 {
     [AdminOnly]
     public class AdminController : Controller

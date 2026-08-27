@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Net;
 using System.Web.Http;
-using ESTAFF.Models.Data;
-using ESTAFF.Services;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Services;
 
 
-namespace ESTAFF.Controllers.Api
+namespace EHS_PORTAL.Areas.ESTAFF.Controllers.Api
 {
     [RoutePrefix("api/tasks")]
     public class TaskApiController : ApiController

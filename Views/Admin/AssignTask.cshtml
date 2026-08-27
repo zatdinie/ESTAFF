@@ -1,4 +1,4 @@
-﻿@model ESTAFF.Models.ViewModels.AssignTaskViewModel
+﻿@model EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.AssignTaskViewModel
 @{
     ViewBag.Title = "Assign Task";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -87,8 +87,8 @@
                     <fieldset class="priority-fieldset">
                         <legend class="form-label">Priority</legend>
                         <div class="priority-options">
-                            @foreach (ESTAFF.Models.Data.TaskPriority p in
-                                Enum.GetValues(typeof(ESTAFF.Models.Data.TaskPriority)))
+                            @foreach (EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskPriority p in
+                                Enum.GetValues(typeof(EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskPriority)))
                             {
                                 var level = p.ToString().ToLower();
 

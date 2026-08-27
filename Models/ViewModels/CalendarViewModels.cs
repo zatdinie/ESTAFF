@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
 
-namespace ESTAFF.Models.ViewModels
+namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
 {
     // The admin calendar: every employee's tasks laid out on the day each one
     // is due, in a day, week or month frame.

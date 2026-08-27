@@ -1,4 +1,4 @@
-@model ESTAFF.Models.ViewModels.CreateTaskViewModel
+@model EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.CreateTaskViewModel
 @{
     ViewBag.Title = "Create Task";
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
@@ -79,8 +79,8 @@
                         @Html.DropDownListFor(m => m.Priority,
                             new SelectList(
                                 Enum.GetValues(
-                                        typeof(ESTAFF.Models.Data.TaskPriority))
-                                    .Cast<ESTAFF.Models.Data.TaskPriority>()
+                                        typeof(EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskPriority))
+                                    .Cast<EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskPriority>()
                                     .Select(p => new {
                                         Value = (int)p,
                                         Text  = p.ToString()

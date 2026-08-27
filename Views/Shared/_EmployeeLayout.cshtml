@@ -1,7 +1,7 @@
 @using Microsoft.AspNet.Identity
 @{
     var userId   = User.Identity.GetUserId();
-    var db       = new ESTAFF.Models.Data.ApplicationDbContext();
+    var db       = new EHS_PORTAL.Areas.ESTAFF.Models.Data.ApplicationDbContext();
     var appUser  = db.Users.Find(userId);
     var fullName = appUser?.UserName ?? "Employee";
     var empNo    = appUser?.EmpID ?? "";

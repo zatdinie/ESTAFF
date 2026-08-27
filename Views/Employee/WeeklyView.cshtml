@@ -1,4 +1,4 @@
-@using ESTAFF.Controllers
+@using EHS_PORTAL.Areas.ESTAFF.Controllers
 @model List<DayTaskGroup>
 @{
     ViewBag.Title = "Weekly View";
@@ -84,7 +84,7 @@
                     foreach (var task in day.Tasks)
                     {
                         var sc = task.Status ==
-                            ESTAFF.Models.Data.TaskStatus.InProgress
+                            EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.InProgress
                             ? "inprogress"
                             : task.Status.ToString().ToLower();
 

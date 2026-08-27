@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ESTAFF.Models.Data
+namespace EHS_PORTAL.Areas.ESTAFF.Models.Data
 {
     // A recurring piece of work within a classification - e.g. "HIRADC Revision"
     // under Chemical & Legal. Under CLIP there are exactly two, and they decide

@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using ESTAFF.Models.Data;
-using ESTAFF.Models.ViewModels;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels;
 
-namespace ESTAFF.Services
+namespace EHS_PORTAL.Areas.ESTAFF.Services
 {
     // Produces the Environment, Safety and Health Monthly Report: the return a
     // Safety and Health Officer files under the Occupational Safety & Health

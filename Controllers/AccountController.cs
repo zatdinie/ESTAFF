@@ -5,10 +5,10 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using ESTAFF.Models.Data;
-using ESTAFF.Models.ViewModels;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels;
 
-namespace ESTAFF.Controllers
+namespace EHS_PORTAL.Areas.ESTAFF.Controllers
 {
     public class AccountController : Controller
     {

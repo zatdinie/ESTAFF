@@ -1,4 +1,4 @@
-@model List<ESTAFF.Models.ViewModels.ReportListItemViewModel>
+@model List<EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.ReportListItemViewModel>
 @{
     ViewBag.Title = "Reports";
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
@@ -108,7 +108,7 @@
                                     <i class="fas fa-download"></i>
                                 </a>
 
-                                @if (r.Status == ESTAFF.Models.Data
+                                @if (r.Status == EHS_PORTAL.Areas.ESTAFF.Models.Data
                                     .ReportStatus.Rejected)
                                 {
                                     using (Html.BeginForm(

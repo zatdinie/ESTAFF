@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
-using ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
 using Microsoft.AspNet.Identity;
 
-namespace ESTAFF.Filters
+namespace EHS_PORTAL.Areas.ESTAFF.Filters
 {
     public class AdminOnlyAttribute : ActionFilterAttribute
     {

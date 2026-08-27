@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
 
-namespace ESTAFF.Models.ViewModels
+namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
 {
     // The scheduling fields every task form carries, so one partial can render
     // them and one set of rules can check them.

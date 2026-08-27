@@ -1,11 +1,11 @@
 ﻿using System.Net;
 using System.Web.Mvc;
-using ESTAFF.Models.Data;
-using ESTAFF.Models.ViewModels;
-using ESTAFF.Services;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels;
+using EHS_PORTAL.Areas.ESTAFF.Services;
 using Microsoft.AspNet.Identity;
 
-namespace ESTAFF.Controllers
+namespace EHS_PORTAL.Areas.ESTAFF.Controllers
 {
     [Authorize]
     public class ClipController : Controller

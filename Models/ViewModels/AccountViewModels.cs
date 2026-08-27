@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ESTAFF.Models.ViewModels
+namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
 {
     public class LoginViewModel
     {

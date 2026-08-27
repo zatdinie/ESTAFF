@@ -1,9 +1,9 @@
-﻿@model ESTAFF.Models.ViewModels.GenerateReportViewModel
+﻿@model EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.GenerateReportViewModel
 @{
     ViewBag.Title = "Preview Report";
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
     int completed = Model.Tasks.Count(t =>
-        t.Status == ESTAFF.Models.Data.TaskStatus.Complete);
+        t.Status == EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Complete);
     decimal rate = Model.Tasks.Count > 0
         ? Math.Round((decimal)completed / Model.Tasks.Count * 100, 1)
         : 0;
@@ -22,15 +22,15 @@
     <div class="report-stat-card pending">
         <div class="report-stat-value">
             @Model.Tasks.Count(t =>
-                t.Status == ESTAFF.Models.Data.TaskStatus.Pending
-                || t.Status == ESTAFF.Models.Data.TaskStatus.InProgress)
+                t.Status == EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Pending
+                || t.Status == EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.InProgress)
         </div>
         <div class="report-stat-label">Pending</div>
     </div>
     <div class="report-stat-card overdue">
         <div class="report-stat-value">
             @Model.Tasks.Count(t =>
-                t.Status == ESTAFF.Models.Data.TaskStatus.Overdue)
+                t.Status == EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Overdue)
         </div>
         <div class="report-stat-label">Overdue</div>
     </div>

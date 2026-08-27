@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace ESTAFF.Models.Data
+namespace EHS_PORTAL.Areas.ESTAFF.Models.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

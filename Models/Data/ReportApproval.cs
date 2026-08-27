@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ESTAFF.Models.Data
+namespace EHS_PORTAL.Areas.ESTAFF.Models.Data
 {
     [Table("ReportApprovals", Schema = "ESTAFF")]
 

@@ -1,5 +1,5 @@
-﻿@using ESTAFF.Models.Data
-@using ESTAFF.Models.ViewModels
+﻿@using EHS_PORTAL.Areas.ESTAFF.Models.Data
+@using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
 @model AdminCalendarViewModel
 @{
     ViewBag.Title = "Calendar";
@@ -17,10 +17,10 @@
 
     var statuses = new[]
     {
-        ESTAFF.Models.Data.TaskStatus.Pending,
-        ESTAFF.Models.Data.TaskStatus.InProgress,
-        ESTAFF.Models.Data.TaskStatus.Complete,
-        ESTAFF.Models.Data.TaskStatus.Overdue
+        EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Pending,
+        EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.InProgress,
+        EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Complete,
+        EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Overdue
     };
 }
 
@@ -51,9 +51,9 @@
 @helper ItemChip(CalendarTaskViewModel item, bool detailed)
 {
     var task = item.Task;
-    var stateClass = task.Status == ESTAFF.Models.Data.TaskStatus.Complete
+    var stateClass = task.Status == EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Complete
         ? "is-complete"
-        : task.Status == ESTAFF.Models.Data.TaskStatus.Overdue
+        : task.Status == EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Overdue
             ? "is-overdue"
             : "";
 
@@ -246,7 +246,7 @@
 
     @foreach (var status in statuses)
     {
-        <a class="acal-stat @(status == ESTAFF.Models.Data.TaskStatus.Overdue ? "overdue" : "") @(Model.Status == status.ToString() ? "active-filter" : "")"
+        <a class="acal-stat @(status == EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Overdue ? "overdue" : "") @(Model.Status == status.ToString() ? "active-filter" : "")"
            href="@Url.Action("Calendar", "Admin",
                 Model.RouteWithStatus(status.ToString()))">
             <div class="acal-stat-value">@Model.CountOf(status)</div>

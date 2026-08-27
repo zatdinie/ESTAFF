@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ESTAFF.Models.Data
+namespace EHS_PORTAL.Areas.ESTAFF.Models.Data
 {
     [Table("TaskItems", Schema = "ESTAFF")]
     public class TaskItem

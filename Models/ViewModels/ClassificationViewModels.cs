@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
 
-namespace ESTAFF.Models.ViewModels
+namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
 {
     // ══════════════════════════════════════════════════════════════
     // Task taxonomy maintenance.
     //
-    // The assign/edit task forms read ESTAFF.TaskClassifications and
-    // ESTAFF.TaskLists straight out of the database, so these screens are the
+    // The assign/edit task forms read EHS_PORTAL.Areas.ESTAFF.TaskClassifications and
+    // EHS_PORTAL.Areas.ESTAFF.TaskLists straight out of the database, so these screens are the
     // supported way to change what those dropdowns offer.
     //
     // "Task type" is what the UI calls a TaskList row - the recurring job

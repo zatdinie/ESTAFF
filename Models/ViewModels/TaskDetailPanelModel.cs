@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ESTAFF.Models.ViewModels
+namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
 {
     // What the task detail panel needs to draw itself, on either calendar.
     //

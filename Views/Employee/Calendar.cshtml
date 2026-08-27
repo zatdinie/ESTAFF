@@ -1,4 +1,4 @@
-﻿@using ESTAFF.Controllers
+﻿@using EHS_PORTAL.Areas.ESTAFF.Controllers
 @model List<DayTaskGroup>
 @{
     ViewBag.Title    = "Calendar";
@@ -137,13 +137,13 @@
                 foreach (var task in day.Tasks)
                 {
                     var sc = task.Status ==
-                        ESTAFF.Models.Data.TaskStatus.InProgress
+                        EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.InProgress
                         ? "inprogress"
                         : task.Status.ToString().ToLower();
 
                     var isOD = task.DueDate.Date < DateTime.Today
                         && task.Status !=
-                           ESTAFF.Models.Data.TaskStatus.Complete;
+                           EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Complete;
 
                     <div class="cal-task-card @sc"
                          draggable="true"
@@ -187,7 +187,7 @@
                         
                         <div class="cal-task-actions">
                             @if (task.Status !=
-                                ESTAFF.Models.Data.TaskStatus.Complete)
+                                EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Complete)
                             {
                                 <button type="button"
                                         class="cal-task-action-btn complete js-status-btn"
@@ -290,7 +290,7 @@
                         foreach (var task in day.Tasks)
                         {
                             var sc = task.Status ==
-                                ESTAFF.Models.Data.TaskStatus.InProgress
+                                EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.InProgress
                                 ? "inprogress"
                                 : task.Status.ToString().ToLower();
 
@@ -361,7 +361,7 @@
             bool isTodayCell    = d.Date == DateTime.Today;
             var cellTasks = tasksByDate.ContainsKey(d.Date)
                 ? tasksByDate[d.Date]
-                : new List<ESTAFF.Models.Data.TaskItem>();
+                : new List<EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskItem>();
 
             <div class="cal-month-cell
                 @(!isCurrentMonth ? "other-month" : "")
@@ -383,7 +383,7 @@
                 @foreach (var task in shown)
                 {
                     var sc = task.Status ==
-                        ESTAFF.Models.Data.TaskStatus.InProgress
+                        EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.InProgress
                         ? "inprogress"
                         : task.Status.ToString().ToLower();
 

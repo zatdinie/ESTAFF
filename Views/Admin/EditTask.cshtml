@@ -1,4 +1,4 @@
-﻿@model ESTAFF.Models.ViewModels.EditTaskViewModel
+﻿@model EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.EditTaskViewModel
 @{
     ViewBag.Title = "Edit Task";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -75,8 +75,8 @@
                             new { @class = "form-label" })
                         @Html.DropDownListFor(m => m.Priority,
                             new SelectList(
-                                Enum.GetValues(typeof(ESTAFF.Models.Data.TaskPriority))
-                                    .Cast<ESTAFF.Models.Data.TaskPriority>()
+                                Enum.GetValues(typeof(EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskPriority))
+                                    .Cast<EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskPriority>()
                                     .Select(p => new { Value = (int)p,
                                                        Text  = p.ToString() }),
                                 "Value", "Text",
@@ -90,8 +90,8 @@
                             new { @class = "form-label" })
                         @Html.DropDownListFor(m => m.Status,
                             new SelectList(
-                                Enum.GetValues(typeof(ESTAFF.Models.Data.TaskStatus))
-                                    .Cast<ESTAFF.Models.Data.TaskStatus>()
+                                Enum.GetValues(typeof(EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus))
+                                    .Cast<EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus>()
                                     .Select(s => new { Value = (int)s,
                                                        Text  = s.ToString() }),
                                 "Value", "Text",
@@ -124,7 +124,7 @@
                     <div class="mt-3">
                         <span class="form-label">Latest status remark</span>
                         @Html.Partial("_StatusRemark",
-                            (ESTAFF.Models.ViewModels.StatusRemarkViewModel)
+                            (EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.StatusRemarkViewModel)
                                 ViewBag.LatestStatusRemark)
                     </div>
                 }

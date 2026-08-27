@@ -1,4 +1,4 @@
-namespace ESTAFF.Models.Data
+namespace EHS_PORTAL.Areas.ESTAFF.Models.Data
 {
     // Which CLIP table a task's attached record lives in.
     //

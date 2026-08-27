@@ -2,10 +2,10 @@
 	ViewBag.Title = "Dashboard";
 	Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
 
-	var dueToday = ViewBag.DueToday as List<ESTAFF.Models.Data.TaskItem>
-				   ?? new List<ESTAFF.Models.Data.TaskItem>();
-	var recentTasks = ViewBag.RecentTasks as List<ESTAFF.Models.Data.TaskItem>
-				   ?? new List<ESTAFF.Models.Data.TaskItem>();
+	var dueToday = ViewBag.DueToday as List<EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskItem>
+				   ?? new List<EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskItem>();
+	var recentTasks = ViewBag.RecentTasks as List<EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskItem>
+				   ?? new List<EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskItem>();
 
 	decimal onTime = (decimal)(ViewBag.OnTimeRate ?? 0m);
 	double gaugeCirc = 2 * Math.PI * 54;
@@ -78,7 +78,7 @@
 				foreach (var task in dueToday)
 				{
 					var sc = task.Status == 
-						ESTAFF.Models.Data.TaskStatus.InProgress 
+						EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.InProgress 
 						? "inprogress" 
 						: task.Status.ToString().ToLower();
 
@@ -189,11 +189,11 @@
 		foreach (var task in recentTasks)
 		{
 			var sc = task.Status == 
-				ESTAFF.Models.Data.TaskStatus.InProgress
+				EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.InProgress
 				? "inprogress"
 				: task.Status.ToString().ToLower();
 			var isOD = task.DueDate.Date < DateTime.Today
-					&& task.Status != ESTAFF.Models.Data.TaskStatus.Complete;
+					&& task.Status != EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Complete;
 
 			<div class="task-row">
 				<div class="task-row-dot @sc"></div>

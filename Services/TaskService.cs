@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ESTAFF.Models.Data;
-using ESTAFF.Models.ViewModels;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels;
 
-namespace ESTAFF.Services
+namespace EHS_PORTAL.Areas.ESTAFF.Services
 {
     public class TaskService
     {

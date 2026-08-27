@@ -1,4 +1,4 @@
-@using ESTAFF.Models.ViewModels
+@using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
 @model List<TaskListItemViewModel>
 @{
     ViewBag.Title = "My Tasks";
@@ -268,14 +268,14 @@
                                 data-task-title="@task.Title"
                                 data-current="@task.Status"
                                 data-note="optional">
-                            @foreach (ESTAFF.Models.Data.TaskStatus s in
-                                Enum.GetValues(typeof(ESTAFF.Models.Data.TaskStatus)))
+                            @foreach (EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus s in
+                                Enum.GetValues(typeof(EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus)))
                             {
                                 @* Overdue is set by the system, but keep it
                                    listed while the task is in that state so
                                    the dropdown shows the real status. *@
-                                if (s != ESTAFF.Models.Data.TaskStatus.Overdue
-                                    || task.Status == ESTAFF.Models.Data.TaskStatus.Overdue)
+                                if (s != EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Overdue
+                                    || task.Status == EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Overdue)
                                 {
                                     <option value="@s"
                                         @(task.Status == s ? "selected" : "")>

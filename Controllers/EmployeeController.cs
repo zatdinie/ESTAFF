@@ -4,12 +4,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using ESTAFF.Filters;
-using ESTAFF.Models.Data;
-using ESTAFF.Models.ViewModels;
-using ESTAFF.Services;
+using EHS_PORTAL.Areas.ESTAFF.Filters;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels;
+using EHS_PORTAL.Areas.ESTAFF.Services;
 
-namespace ESTAFF.Controllers
+namespace EHS_PORTAL.Areas.ESTAFF.Controllers
 {
     [EmployeeOnly]
     public class EmployeeController : Controller

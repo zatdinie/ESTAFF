@@ -1,4 +1,4 @@
-﻿@model ESTAFF.Models.ViewModels.ReportDetailViewModel
+﻿@model EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.ReportDetailViewModel
 @{
     ViewBag.Title = "Report Details";
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
@@ -75,7 +75,7 @@
         </div>
 
         <!-- Rejection Banner -->
-        @if (Model.Status == ESTAFF.Models.Data.ReportStatus.Rejected
+        @if (Model.Status == EHS_PORTAL.Areas.ESTAFF.Models.Data.ReportStatus.Rejected
             && !string.IsNullOrEmpty(Model.RejectionReason))
         {
             <div class="rejection-banner">
@@ -163,7 +163,7 @@
                 </a>
 
                 @if (Model.Status ==
-                    ESTAFF.Models.Data.ReportStatus.Rejected)
+                    EHS_PORTAL.Areas.ESTAFF.Models.Data.ReportStatus.Rejected)
                 {
                     using (Html.BeginForm("ResubmitReport","Employee",
                         new { id = Model.ReportId }, FormMethod.Post))

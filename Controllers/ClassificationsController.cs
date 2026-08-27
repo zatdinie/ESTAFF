@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using ESTAFF.Filters;
-using ESTAFF.Models.Data;
-using ESTAFF.Models.ViewModels;
-using ESTAFF.Services;
+using EHS_PORTAL.Areas.ESTAFF.Filters;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels;
+using EHS_PORTAL.Areas.ESTAFF.Services;
 
-namespace ESTAFF.Controllers
+namespace EHS_PORTAL.Areas.ESTAFF.Controllers
 {
     // Maintains the task taxonomy: the classifications offered on the assign
     // and edit task forms, and the task types (TaskList rows) under each one.

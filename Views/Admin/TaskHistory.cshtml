@@ -1,4 +1,4 @@
-﻿@model List<ESTAFF.Models.ViewModels.TaskHistoryItemViewModel>
+﻿@model List<EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.TaskHistoryItemViewModel>
 @{
     ViewBag.Title = "Task History";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -62,7 +62,7 @@
                             <div class="history-task">
                                 Task: <strong>@item.TaskTitle</strong>
                             </div>
-                            @if (item.Action == ESTAFF.Services.TaskService.StatusChangedAction
+                            @if (item.Action == EHS_PORTAL.Areas.ESTAFF.Services.TaskService.StatusChangedAction
                                  && !string.IsNullOrEmpty(item.OldValue))
                             {
                                 <div class="history-detail">

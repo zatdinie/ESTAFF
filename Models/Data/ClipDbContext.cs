@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ESTAFF.Models.Data
+namespace EHS_PORTAL.Areas.ESTAFF.Models.Data
 {
     // Read-only window onto the CLIP schema, which belongs to EHS_PORTAL.
     //

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ESTAFF.Models.Data
+namespace EHS_PORTAL.Areas.ESTAFF.Models.Data
 {
     // The EHS work stream a task belongs to. A lookup table rather than an enum
-    // because the taxonomy is maintained as data (see ESTAFF.TaskClassifications):
+    // because the taxonomy is maintained as data (see EHS_PORTAL.Areas.ESTAFF.TaskClassifications):
     //   1 Chemical & Legal   2 DOSH / BOMBA / DOE   3 Environmental
     //
     // Every row here is an ordinary work stream. There is no longer a

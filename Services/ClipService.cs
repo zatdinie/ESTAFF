@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
-using ESTAFF.Models.Data;
-using ESTAFF.Models.ViewModels;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
+using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels;
 
-namespace ESTAFF.Services
+namespace EHS_PORTAL.Areas.ESTAFF.Services
 {
     // Read-only access to the CLIP schema that EHS_PORTAL owns, plus the rules
     // that attach an ESTAFF task to a CLIP record.

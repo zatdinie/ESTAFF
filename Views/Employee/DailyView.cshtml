@@ -1,4 +1,4 @@
-@model List<ESTAFF.Models.Data.TaskItem>
+@model List<EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskItem>
 @{
     ViewBag.Title = "Daily View";
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
@@ -62,12 +62,12 @@
         @foreach (var task in Model)
         {
             var sc = task.Status ==
-                ESTAFF.Models.Data.TaskStatus.InProgress
+                EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.InProgress
                 ? "inprogress"
                 : task.Status.ToString().ToLower();
 
             var isComplete = task.Status ==
-                ESTAFF.Models.Data.TaskStatus.Complete;
+                EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Complete;
 
             <div class="daily-task-item @(isComplete ? "complete" : "") anim-fade-up">
                 <div class="daily-task-accent @sc"></div>
@@ -100,7 +100,7 @@
                     <input type="hidden" name="taskId"
                            value="@task.TaskId" />
 
-                    if (task.Status != ESTAFF.Models.Data.TaskStatus.Complete)
+                    if (task.Status != EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Complete)
                     {
                         <button type="submit" name="status"
                                 value="InProgress"

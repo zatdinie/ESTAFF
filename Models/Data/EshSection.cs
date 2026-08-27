@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ESTAFF.Models.Data
+namespace EHS_PORTAL.Areas.ESTAFF.Models.Data
 {
     // The ten numbered parts of the Environment, Safety and Health Monthly
     // Report a Safety and Health Officer files under the Occupational Safety &

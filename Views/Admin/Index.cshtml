@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 
     var recentTasks = ViewBag.RecentTasks as
-        IEnumerable<ESTAFF.Models.ViewModels.TaskListItemViewModel> ?? 
-        Enumerable.Empty<ESTAFF.Models.ViewModels.TaskListItemViewModel>();
+        IEnumerable<EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.TaskListItemViewModel> ?? 
+        Enumerable.Empty<EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.TaskListItemViewModel>();
 
     int total     = (int)(ViewBag.TotalTasks      ?? 0);
     int pending   = (int)(ViewBag.PendingCount    ?? 0);

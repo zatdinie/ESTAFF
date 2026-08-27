@@ -1,12 +1,12 @@
-﻿@model List<ESTAFF.Models.ViewModels.TaskListItemViewModel>
+﻿@model List<EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.TaskListItemViewModel>
 @{
     ViewBag.Title = "All Tasks";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     var selectedStatus = ViewBag.SelectedStatus as string ?? "";
     var selectedClassification = ViewBag.SelectedClassification as string ?? "";
     var employees = ViewBag.Employees as 
-        List<ESTAFF.Models.Data.ApplicationUser> ??
-        new List<ESTAFF.Models.Data.ApplicationUser>();
+        List<EHS_PORTAL.Areas.ESTAFF.Models.Data.ApplicationUser> ??
+        new List<EHS_PORTAL.Areas.ESTAFF.Models.Data.ApplicationUser>();
     var classifications = ViewBag.Classifications as List<ClassificationOption>
         ?? new List<ClassificationOption>();
 }
@@ -27,8 +27,8 @@
             All
         </a>
 
-        @foreach (ESTAFF.Models.Data.TaskStatus s in
-            Enum.GetValues(typeof(ESTAFF.Models.Data.TaskStatus)))
+        @foreach (EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus s in
+            Enum.GetValues(typeof(EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus)))
         {
             <a href="@Url.Action("Tasks", "Admin", new {
                    status = s.ToString(),
