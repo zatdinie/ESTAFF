@@ -234,6 +234,8 @@ namespace ESTAFF.Controllers
                     Status                 = t.Status,
                     Priority               = t.Priority,
                     DueDate                = t.DueDate,
+                    PeriodStart            = t.PeriodStart ?? null,
+                    PeriodEnd              = t.PeriodEnd ?? null,
                     CreatedDate            = t.CreatedDate,
                     AssignedDate           = t.AssignedDate,
                     CompletedDate          = t.CompletedDate,

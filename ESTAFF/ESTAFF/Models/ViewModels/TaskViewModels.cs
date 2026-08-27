@@ -161,6 +161,8 @@ namespace ESTAFF.Models.ViewModels
         public TaskStatus Status { get; set; }
         public TaskPriority? Priority { get; set; }
         public DateTime DueDate { get; set; }
+        public TimeSpan? PeriodStart { get; set; }
+        public TimeSpan? PeriodEnd { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime AssignedDate { get; set; }
         public DateTime? CompletedDate { get; set; }

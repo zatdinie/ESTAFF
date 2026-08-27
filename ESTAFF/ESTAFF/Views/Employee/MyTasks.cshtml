@@ -193,15 +193,30 @@
 
                 <div class="my-task-meta">
                     @* Urgency in words as well as colour, and the exact date
-                       kept on the tooltip for anyone who needs it. *@
-                    <div class="my-task-due due-@task.DueClass"
-                         title="Due @task.DueDate.ToString("dddd, dd MMM yyyy")">
-                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                        <span class="my-task-due-text">@task.DueText</span>
-                        <span class="my-task-due-date">
-                            @task.DueDate.ToString("dd MMM")
-                        </span>
-                    </div>
+        kept on the tooltip for anyone who needs it. *@
+                    @if (task.PeriodStart != null)
+                    {
+                        <div class="my-task-due due-@task.DueClass">
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                            <span class="my-task-due-text">@task.PeriodStart - @task.PeriodEnd</span>
+                            <span class="my-task-due-date">
+                                Today
+                            </span>
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="my-task-due due-@task.DueClass"
+                             title="Due @task.DueDate.ToString("dddd, dd MMM yyyy")">
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                            <span class="my-task-due-text">@task.DueText</span>
+                            <span class="my-task-due-date">
+                                @task.DueDate.ToString("dd MMM")
+                            </span>
+                        </div>
+                    }
+
 
                     @if (!string.IsNullOrEmpty(task.CreatedByName))
                     {
