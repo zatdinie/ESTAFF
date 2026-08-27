@@ -72,6 +72,24 @@ A task covering a CLIP record is reporting on work tracked in EHS_PORTAL, so **C
 - Rendered by `Views/Shared/_ClipProgress.cshtml` on the employee task view (`MyTasks`) and inside `_ReportTaskTable` — which the admin `ReviewReport` and both employee report pages share, so an approver sees the evidence without downloading the PDF. `ReportPdfService.AddClipBlock` prints the same thing.
 - Document references are shown by **file name only** and are not linked: the path is EHS_PORTAL's own and ESTAFF has no route that serves its files. "Open in CLIP" goes to the record. Keep it that way — and note that the picker's JSON projection in `_ClipPicker.cshtml` is an explicit field list that deliberately excludes `Phases`, so document paths never reach the browser.
 
+## Task scheduling and the calendars
+
+A task is either **daily** or **long term** (`TaskItem.ScheduleType`), and the two are scheduled in different terms. The form asks for one or the other, never both:
+
+- **Daily** — the day the work is done (`PeriodDate`) and the hours it runs between (`PeriodStart`/`PeriodEnd`, whole hours, an end before the start means a night shift). It is due that day: `TaskPeriod.ApplyTo` writes `DueDate` from `PeriodDate`, and the form never asks for a due date. `EmployeeController.RescheduleTask` moves the period with the due date when a daily task is dragged.
+- **Long term** — a due date, and no period at all. A period that posts anyway is cleared by `ApplyTo`, so switching an existing task from daily to long term drops hours it no longer has.
+
+The rules live in `TaskPeriod` (`Models/ViewModels/TaskPeriodFields.cs`) because all four task forms answer to them; the controllers only report what `Validate` returns and remove the binder's "due date required" complaint when the schedule is daily. `Views/Shared/_ScheduleFields.cshtml` (formerly `_PeriodField`) renders the whole block — task type, due date, period — and marks the initial show/hide server-side; `estaff-clip.js` only swaps them from the first click, defaulting an empty period date to today.
+
+There are two calendars, deliberately separate:
+
+- `Views/Employee/Calendar.cshtml` — the employee's own tasks, with drag-and-drop rescheduling. Styles are `.cal-*` in `employee.css`.
+- `Views/Admin/Calendar.cshtml` — the manager's view of every employee's tasks in a day/week/month frame, with plant/employee/status filters carried in the query string. Styles are `.acal-*` in `admin-calendar.css`.
+
+**Both show the same detail modal, from the same markup.** Items on the grid are terse; the full detail (schedule, classification, CLIP record, concern, action history — plus assignee and plant on the admin side) is rendered hidden by Razor as one block per item and lifted into the modal on click, so no detail is ever assembled in JavaScript, where the task's own text would have to be escaped by hand. The shared pieces are `Views/Shared/_TaskDetailPanel.cshtml` (the panel), `_TaskDetailModal.cshtml` (the shell), `Content/css/task-detail.css` (`.tdp-*`) and `Scripts/estaff-task-detail.js` (any element with `data-detail="<panel id>"` is a trigger, so each calendar keeps its own item markup). `TaskDetailPanelModel` carries what differs: the employee's own calendar omits the assignee and plant rows, because every task on it is that one person's and the plant would be the same on all of them. Add a row to the panel, not to one calendar.
+
+Tasks sit on `DueDate` in both — which for a daily task is the day it is worked. **A task has no plant of its own**: it belongs to a plant through its assignee's `CLIP.UserPlants` rows, which is EHS_PORTAL's incomplete record, so an employee with no rows there shows as "No plant" rather than dropping off the calendar. Colour comes from `CalendarPalette` (the plant's position in the plant list, twelve slots) and is always named in the legend as well as shown — colour is never the only carrier.
+
 ## The printed report
 
 The PDF produced by `ReportPdfService` is the **Environment, Safety and Health Monthly Report** a Safety and Health Officer files under the Occupational Safety & Health (Safety & Health Officer) Regulations 1997. It is a fixed statutory form, not a layout we are free to rearrange — `ESTAFF/Safety_Monthly_Report_26_V1.xlsx` (sheet `Jun26`) is the reference copy it was built to match.
