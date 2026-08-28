@@ -7,7 +7,7 @@ namespace EHS_PORTAL.Areas.ESTAFF
     {
         public override string AreaName
         {
-            get { return "ESTAFF" }
+            get { return "ESTAFF"; }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
