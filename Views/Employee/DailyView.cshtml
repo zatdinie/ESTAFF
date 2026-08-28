@@ -1,7 +1,7 @@
 @model List<EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskItem>
 @{
     ViewBag.Title = "Daily View";
-    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    Layout = "~/Areas/ESTAFF/Views/Shared/_EmployeeLayout.cshtml";
     DateTime targetDate = (DateTime)ViewBag.TargetDate;
     bool isToday = (bool)ViewBag.IsToday;
 }

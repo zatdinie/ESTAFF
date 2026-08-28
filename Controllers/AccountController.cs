@@ -14,11 +14,11 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
 
-        private ApplicationUserManager UserManager =>
-            HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        private EstaffUserManager UserManager =>
+            HttpContext.GetOwinContext().GetUserManager<EstaffUserManager>();
 
-        private ApplicationSignInManager SignInManager =>
-            HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+        private EstaffSignInManager SignInManager =>
+            HttpContext.GetOwinContext().Get<EstaffSignInManager>();
 
         private IAuthenticationManager AuthManager =>
             HttpContext.GetOwinContext().Authentication;

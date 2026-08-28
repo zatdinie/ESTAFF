@@ -2,7 +2,7 @@
     ViewBag.Title    = "Dashboard";
     ViewBag.PageTitle    = "Dashboard";
     ViewBag.PageSubtitle = "Welcome back! Here's what's happening today.";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/ESTAFF/Views/Shared/_AdminLayout.cshtml";
 
     var recentTasks = ViewBag.RecentTasks as
         IEnumerable<EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.TaskListItemViewModel> ?? 

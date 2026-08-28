@@ -141,7 +141,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
                 return View("CreateStaff", model);
 
             var userManager = HttpContext.GetOwinContext()
-                .GetUserManager<ApplicationUserManager>();
+                .GetUserManager<EstaffUserManager>();
 
             // Check duplicate employee number
             if (_db.Users.Any(u => u.EmpID == model.EmpID))

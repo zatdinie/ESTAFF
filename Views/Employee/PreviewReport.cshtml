@@ -1,7 +1,7 @@
 ﻿@model EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.GenerateReportViewModel
 @{
     ViewBag.Title = "Preview Report";
-    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    Layout = "~/Areas/ESTAFF/Views/Shared/_EmployeeLayout.cshtml";
     int completed = Model.Tasks.Count(t =>
         t.Status == EHS_PORTAL.Areas.ESTAFF.Models.Data.TaskStatus.Complete);
     decimal rate = Model.Tasks.Count > 0

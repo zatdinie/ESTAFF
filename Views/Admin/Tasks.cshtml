@@ -1,7 +1,7 @@
 ﻿@model List<EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.TaskListItemViewModel>
 @{
     ViewBag.Title = "All Tasks";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/ESTAFF/Views/Shared/_AdminLayout.cshtml";
     var selectedStatus = ViewBag.SelectedStatus as string ?? "";
     var selectedClassification = ViewBag.SelectedClassification as string ?? "";
     var employees = ViewBag.Employees as 

@@ -8,18 +8,18 @@ using Microsoft.Owin.Security;
 namespace EHS_PORTAL.Areas.ESTAFF.Models.Data
 {
     // Role Manager
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class EstaffUserManager : UserManager<ApplicationUser>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+        public EstaffUserManager(IUserStore<ApplicationUser> store)
             : base(store)
         {
         }
 
-        public static ApplicationUserManager Create(
-            IdentityFactoryOptions<ApplicationUserManager> options,
+        public static EstaffUserManager Create(
+            IdentityFactoryOptions<EstaffUserManager> options,
             IOwinContext context)
         {
-            var manager = new ApplicationUserManager(
+            var manager = new EstaffUserManager(
                 new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             
             manager.PasswordValidator = new PasswordValidator
@@ -40,21 +40,21 @@ namespace EHS_PORTAL.Areas.ESTAFF.Models.Data
     }
 
     // Sign in Manager
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
+    public class EstaffSignInManager : SignInManager<ApplicationUser, string>
     {
-        public ApplicationSignInManager (
-            ApplicationUserManager userManager,
+        public EstaffSignInManager (
+            EstaffUserManager userManager,
             IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
         {
         }
         
-        public static ApplicationSignInManager Create(
-            IdentityFactoryOptions<ApplicationSignInManager> options,
+        public static EstaffSignInManager Create(
+            IdentityFactoryOptions<EstaffSignInManager> options,
             IOwinContext context)
         {
-            return new ApplicationSignInManager(
-                context.GetUserManager<ApplicationUserManager>(),
+            return new EstaffSignInManager(
+                context.GetUserManager<EstaffUserManager>(),
                 context.Authentication);
         }
     }

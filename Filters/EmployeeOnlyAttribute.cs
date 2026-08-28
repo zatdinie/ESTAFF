@@ -13,7 +13,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Filters
             // Not Logged in
             if (!httpContext.User.Identity.IsAuthenticated)
             {
-                filterContext.Result = new RedirectResult("/Account/Login");
+                filterContext.Result = new RedirectResult("/ESTAFF/Account/Login");
                 return;
             }
 
@@ -25,7 +25,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Filters
 
                 if (user == null || user.IsAdmin)
                 {
-                    filterContext.Result = new RedirectResult("/Account/Login");
+                    filterContext.Result = new RedirectResult("/ESTAFF/Account/Login");
                 }
             }
 

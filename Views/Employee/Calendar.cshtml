@@ -2,7 +2,7 @@
 @model List<DayTaskGroup>
 @{
     ViewBag.Title    = "Calendar";
-    Layout           = "~/Views/Shared/_EmployeeLayout.cshtml";
+    Layout           = "~/Areas/ESTAFF/Views/Shared/_EmployeeLayout.cshtml";
     string curView   = ViewBag.CurrentView as string ?? "weekly";
     DateTime target  = (DateTime)ViewBag.TargetDate;
     DateTime pStart  = (DateTime)ViewBag.PeriodStart;

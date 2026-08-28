@@ -2,7 +2,7 @@
 @model List<TaskListItemViewModel>
 @{
     ViewBag.Title = "My Tasks";
-    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    Layout = "~/Areas/ESTAFF/Views/Shared/_EmployeeLayout.cshtml";
 
     var sel        = ViewBag.SelectedStatus as string ?? "";
     var term       = ViewBag.SearchTerm as string ?? "";

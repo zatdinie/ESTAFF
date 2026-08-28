@@ -2,7 +2,7 @@
 @model List<DayTaskGroup>
 @{
     ViewBag.Title = "Weekly View";
-    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    Layout = "~/Areas/ESTAFF/Views/Shared/_EmployeeLayout.cshtml";
     DateTime weekStart = (DateTime)ViewBag.WeekStart;
     DateTime weekEnd   = (DateTime)ViewBag.WeekEnd;
     bool isThisWeek    = (bool)ViewBag.IsThisWeek;

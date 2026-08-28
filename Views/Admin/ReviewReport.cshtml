@@ -1,7 +1,7 @@
 ﻿@model EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.ReportDetailViewModel
 @{
     ViewBag.Title = "Review Report";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/ESTAFF/Views/Shared/_AdminLayout.cshtml";
     var sc = Model.Status.ToString().ToLower();
     bool isPending = Model.Status ==
         EHS_PORTAL.Areas.ESTAFF.Models.Data.ReportStatus.Submitted;

@@ -1,7 +1,7 @@
 @model EHS_PORTAL.Areas.ESTAFF.Models.Data.ApplicationUser
 @{
     ViewBag.Title    = "My Profile";
-    Layout           = "~/Views/Shared/_EmployeeLayout.cshtml";
+    Layout           = "~/Areas/ESTAFF/Views/Shared/_EmployeeLayout.cshtml";
     decimal onTime   = (decimal)(ViewBag.OnTimeRate ?? 0m);
     double gaugeCirc  = 2 * Math.PI * 54;
     double gaugeFill  = gaugeCirc * (double)onTime / 100;
