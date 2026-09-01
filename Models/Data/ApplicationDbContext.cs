@@ -80,6 +80,19 @@ namespace EHS_PORTAL.Areas.ESTAFF.Models.Data
             modelBuilder.Entity<TaskList>().ToTable("TaskLists", "ESTAFF");
             modelBuilder.Entity<TaskClassification>().ToTable("TaskClassifications", "ESTAFF");
 
+            // ReportApproval relationships
+            modelBuilder.Entity<ReportApproval>()
+                .HasRequired(ra => ra.Reporter)
+                .WithMany()
+                .HasForeignKey(ra => ra.ReporterId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ReportApproval>()
+                .HasOptional(ra => ra.Approver)
+                .WithMany()
+                .HasForeignKey(ra => ra.ApproverId)
+                .WillCascadeOnDelete(false);
+
             // TaskItem relationships
             modelBuilder.Entity<Staff>()
                 .HasRequired(s => s.User)

@@ -1271,6 +1271,15 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
             };
 
             _db.Reports.Add(report);
+
+            _db.ReportApprovals.Add(new ReportApproval
+            {
+                ReportId       = report.ReportId,
+                ReporterId     = userId,
+                SubmittedDate  = report.SubmittedDate ?? DateTime.Now,
+                ApprovalStatus = ApprovalStatus.Pending
+            });
+
             _db.SaveChanges();
 
             TempData["SuccessMessage"] = 
