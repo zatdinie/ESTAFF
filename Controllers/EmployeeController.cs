@@ -1177,6 +1177,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
         public ActionResult ApproveReport(int id)
         {
             var report = _db.Reports.Find(id);
+            var approvalRecord = _db.ReportApprovals.FirstOrDefault(ra => ra.ReportId == id);
             var userId = User.Identity.GetUserId();
             var userPlant = _db.UserPlants.FirstOrDefault(up => up.UserId == userId);
             if (report == null || report.PlantId != userPlant.PlantId) return HttpNotFound();
@@ -1185,6 +1186,13 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
             report.ApprovedDate = DateTime.Now;
             report.RejectionReason = null;
             report.LastModifiedDate = DateTime.Now;
+
+            if (approvalRecord != null)
+            {
+                approvalRecord.ApprovalStatus = ApprovalStatus.Approved;
+                approvalRecord.DateApproved = DateTime.Now;
+            }
+
             _db.SaveChanges();
 
             TempData["SuccessMessage"] =
@@ -1200,7 +1208,10 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RejectReport(ApproveReportViewModel model)
         {
-            var report = _db.Reports.Find(model.ReportId);
+            var report = _db.Reports.Find(model.ReportId);            
+            var approvalRecord = _db.ReportApprovals.FirstOrDefault(ra => ra.ReportId == model.ReportId);
+            var user = User.Identity.GetUserId();
+
             if (report == null) return HttpNotFound();
 
             if (string.IsNullOrWhiteSpace(model.RejectionReason))
@@ -1215,6 +1226,16 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
             report.Status = ReportStatus.Rejected;
             report.RejectionReason = model.RejectionReason;
             report.LastModifiedDate = DateTime.Now;
+
+            if (approvalRecord != null)
+            {
+                approvalRecord.ApprovalStatus = ApprovalStatus.Rejected;
+                approvalRecord.ApproverId = user;
+                approvalRecord.DateApproved = DateTime.Now;
+                approvalRecord.Comments = model.RejectionReason;
+
+            }
+
             _db.SaveChanges();
 
             TempData["SuccessMessage"] = 
