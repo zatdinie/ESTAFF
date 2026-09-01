@@ -19,6 +19,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - EStaff Admin</title>
+    <link rel="shortcut icon" href="~/Areas/ESTAFF/favicon.ico" type="image/x-icon" />
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
@@ -80,13 +81,17 @@
             <i class="fas fa-calendar-alt"></i> Calendar
         </a>
         <p class="nav-section-label">Reports</p>
-        <a href="@Url.Action("MyReports", "Employee")"
-           class="nav-link @(action == "MyReports" ? "active" : "")">
-            <i class="fas fa-file-alt"></i> Reports
-        </a>
         <a href="@Url.Action("GenerateReport", "Employee")"
            class="nav-link @(action == "GenerateReport" ? "active" : "")">
             <i class="fas fa-plus-circle"></i> Generate Report
+        </a>
+        <a href="@Url.Action("PendingReport", "Employee")"
+           class="nav-link @(action == "PendingReport" ? "active" : "")">
+            <i class="fas fa-circle-check"></i> Report Approval
+        </a>
+        <a href="@Url.Action("MyReports", "Employee")"
+           class="nav-link @(action == "MyReports" ? "active" : "")">
+            <i class="fas fa-file-alt"></i> Reports
         </a>
 
         <p class="nav-section-label">Profile</p>
