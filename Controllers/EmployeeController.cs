@@ -8,6 +8,7 @@ using EHS_PORTAL.Areas.ESTAFF.Filters;
 using EHS_PORTAL.Areas.ESTAFF.Models.Data;
 using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels;
 using EHS_PORTAL.Areas.ESTAFF.Services;
+using Microsoft.Win32;
 
 namespace EHS_PORTAL.Areas.ESTAFF.Controllers
 {
@@ -1064,6 +1065,161 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
                 .BuildReportTaskDetails(tasks, Clip.GetItemsForTasks(tasks));
 
             return View("PreviewReport", model);
+        }
+
+        // ===========
+        // Pending Report - GET
+        // ===========
+        public ActionResult PendingReport()
+        {
+            ViewBag.PageTitle = "Pending Report Approval";
+            ViewBag.PageSubtitle = "Awaiting for approval by plant representative.";
+            var userId = User.Identity.GetUserId();
+            var userPlant = _db.UserPlants.FirstOrDefault(up => up.UserId == userId);
+
+            var reports = _db.Reports
+                .Where(r => r.Status == ReportStatus.Submitted && r.PlantId == userPlant.PlantId)
+                .OrderBy(r => r.SubmittedDate)
+                .ToList()
+                .Select(r => new ReportListItemViewModel
+                {
+                    ReportId = r.ReportId,
+                    PlantId = r.PlantId,
+                    PlantName = r.Plant?.PlantName,
+                    EmpName = r.User?.UserName ?? "-",
+                    EmpNumber = r.User?.EmpID ?? "-",
+                    ReportType = r.ReportType,
+                    PeriodStart = r.PeriodStart,
+                    PeriodEnd = r.PeriodEnd,
+                    Status = r.Status,
+                    CreatedDate = r.CreatedDate,
+                    SubmittedDate = r.SubmittedDate
+                })
+                .ToList();
+
+            return View(reports);
+        }
+
+        // ===========
+        // Review Report - GET
+        // ===========
+        public ActionResult ReviewReport(int id)
+        {
+            ViewBag.PageTitle = "Review Report";
+            ViewBag.PageSubtitle = "Review plant report.";
+
+            var report = _db.Reports.Find(id);
+            if (report == null) return HttpNotFound();
+
+            var taskService = new TaskService(_db);
+
+            // Read through TaskService so the admin's copy of a report covers
+            // exactly the tasks the employee submitted. This used to run its
+            // own query filtered on CreatedDate while every employee-facing
+            // page filtered on DueDate, which meant an approver could be
+            // reviewing a different set of tasks than the one that was filed.
+            //
+            // Plant-scoped reports read their plant's tasks; a legacy personal
+            // one still reads the filer's, so an old return reprints as filed.
+            var tasks = report.PlantId.HasValue
+                ? taskService.GetTasksForReportPeriod(
+                    report.PlantId.Value, report.PeriodStart, report.PeriodEnd)
+                : taskService.GetTasksForReportPeriod(
+                    report.UserId, report.PeriodStart, report.PeriodEnd);
+
+            var completed = tasks.Count(t =>
+                t.Status == TaskStatus.Complete);
+
+            var vm = new ReportDetailViewModel
+            {
+                ReportId = report.ReportId,
+                PlantId = report.PlantId,
+                PlantName = report.Plant?.PlantName,
+                EmpName = report.User?.UserName ?? "-",
+                EmpNumber = report.User?.EmpID ?? "-",
+                EmpEmail = report.User?.Email ?? "-",
+                ReportType = report.ReportType,
+                PeriodStart = report.PeriodStart,
+                PeriodEnd = report.PeriodEnd,
+                Status = report.Status,
+                CreatedDate = report.CreatedDate,
+                SubmittedDate = report.SubmittedDate,
+                ApprovedDate = report.ApprovedDate,
+                RejectionReason = report.RejectionReason,
+                Tasks = tasks,
+                TotalTasks = tasks.Count,
+                CompletedTasks = completed,
+                PendingTasks = tasks.Count(t => 
+                    t.Status == TaskStatus.Pending || 
+                    t.Status == TaskStatus.InProgress),
+                OverdueTasks = tasks.Count(t =>
+                    t.Status == TaskStatus.Overdue),
+                CompletionRate = tasks.Count > 0
+                    ? Math.Round((decimal)completed / tasks.Count * 100, 1)
+                    : 0
+
+            };
+
+            // The review table shows the actions taken on each task, so the
+            // page needs the same resolved detail the PDF is built from.
+            vm.TaskDetails = taskService
+                .BuildReportTaskDetails(tasks, Clip.GetItemsForTasks(tasks));
+
+            return View(vm);
+        }
+
+        // ======================
+        // APPROVE REPORT — POST
+        // ======================
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ApproveReport(int id)
+        {
+            var report = _db.Reports.Find(id);
+            var userId = User.Identity.GetUserId();
+            var userPlant = _db.UserPlants.FirstOrDefault(up => up.UserId == userId);
+            if (report == null || report.PlantId != userPlant.PlantId) return HttpNotFound();
+
+            report.Status = ReportStatus.Approved;
+            report.ApprovedDate = DateTime.Now;
+            report.RejectionReason = null;
+            report.LastModifiedDate = DateTime.Now;
+            _db.SaveChanges();
+
+            TempData["SuccessMessage"] =
+                $"{report.User?.UserName}'s report approved!";
+            return RedirectToAction("PendingReport");
+        }
+
+        // ══════════════════════════════════════════
+        // REJECT REPORT — POST
+        // ══════════════════════════════════════════
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RejectReport(ApproveReportViewModel model)
+        {
+            var report = _db.Reports.Find(model.ReportId);
+            if (report == null) return HttpNotFound();
+
+            if (string.IsNullOrWhiteSpace(model.RejectionReason))
+            {
+                TempData["ErrorMessage"] = 
+                    "Please provide a rejection reason.";
+                return RedirectToAction(
+                    "ReviewReport", new { id = model.ReportId }
+                );
+            }
+
+            report.Status = ReportStatus.Rejected;
+            report.RejectionReason = model.RejectionReason;
+            report.LastModifiedDate = DateTime.Now;
+            _db.SaveChanges();
+
+            TempData["SuccessMessage"] = 
+                $"{report.User?.UserName}'s report rejected.";
+            return RedirectToAction("PendingReport");
         }
 
         // ===========

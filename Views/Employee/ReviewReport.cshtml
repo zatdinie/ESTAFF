@@ -1,0 +1,250 @@
+@model EHS_PORTAL.Areas.ESTAFF.Models.ViewModels.ReportDetailViewModel
+@{
+    ViewBag.Title = "Review Report";
+    Layout = "~/Areas/ESTAFF/Views/Shared/_EmployeeLayout.cshtml";
+    var sc = Model.Status.ToString().ToLower();
+    bool isPending = Model.Status ==
+        EHS_PORTAL.Areas.ESTAFF.Models.Data.ReportStatus.Submitted;
+}
+
+<div class="report-detail-layout">
+
+    <!-- LEFT -->
+    <div>
+
+        <!-- Header -->
+        <div class="report-header-card">
+            <div class="report-header-banner"></div>
+            <div class="report-header-body">
+                <div class="d-flex justify-content-between
+                            align-items-start">
+                    <div>
+                        <h5 style="font-size:1.1rem; font-weight:800;
+                                   color:var(--text-primary);
+                                   margin:0 0 0.3rem;
+                                   letter-spacing:-0.3px;">
+                            @Model.ReportType Report
+                        </h5>
+                        <p style="font-size:0.82rem;
+                                  color:var(--text-muted); margin:0;">
+                            @Model.PeriodStart.ToString("MMMM dd") –
+                            @Model.PeriodEnd.ToString("MMMM dd, yyyy")
+                        </p>
+                    </div>
+                    <span class="badge-pill badge-@sc">
+                        @Model.Status
+                    </span>
+                </div>
+
+                <div class="report-meta-grid">
+                    @* What the return is about. The employee below it is who
+                       filed it, which is provenance rather than scope. *@
+                    <div class="report-meta-item">
+                        <span class="report-meta-label">Plant</span>
+                        <span class="report-meta-value">
+                            @(string.IsNullOrWhiteSpace(Model.PlantName)
+                                ? (Model.PlantId.HasValue
+                                    ? "Plant #" + Model.PlantId.Value
+                                    : "Personal (legacy)")
+                                : Model.PlantName)
+                        </span>
+                    </div>
+                    <div class="report-meta-item">
+                        <span class="report-meta-label">Filed by</span>
+                        <span class="report-meta-value">
+                            @Model.EmpName
+                        </span>
+                    </div>
+                    <div class="report-meta-item">
+                        <span class="report-meta-label">
+                            Employee No.
+                        </span>
+                        <span class="report-meta-value">
+                            @Model.EmpNumber
+                        </span>
+                    </div>
+                    <div class="report-meta-item">
+                        <span class="report-meta-label">Submitted</span>
+                        <span class="report-meta-value">
+                            @(Model.SubmittedDate.HasValue
+                                ? Model.SubmittedDate.Value
+                                    .ToString("MMM dd, yyyy")
+                                : "—")
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rejection Banner -->
+        @if (Model.Status ==
+            EHS_PORTAL.Areas.ESTAFF.Models.Data.ReportStatus.Rejected
+            && !string.IsNullOrEmpty(Model.RejectionReason))
+        {
+            <div class="rejection-banner">
+                <i class="fas fa-exclamation-circle"></i>
+                <div class="rejection-banner-text">
+                    <h6>Rejection Reason</h6>
+                    <p>@Model.RejectionReason</p>
+                </div>
+            </div>
+        }
+
+        <!-- Stats -->
+        <div class="report-stats-row">
+            <div class="report-stat-card">
+                <div class="report-stat-value">@Model.TotalTasks</div>
+                <div class="report-stat-label">Total</div>
+            </div>
+            <div class="report-stat-card completed">
+                <div class="report-stat-value">
+                    @Model.CompletedTasks
+                </div>
+                <div class="report-stat-label">Completed</div>
+            </div>
+            <div class="report-stat-card pending">
+                <div class="report-stat-value">
+                    @Model.PendingTasks
+                </div>
+                <div class="report-stat-label">Pending</div>
+            </div>
+            <div class="report-stat-card overdue">
+                <div class="report-stat-value">
+                    @Model.OverdueTasks
+                </div>
+                <div class="report-stat-label">Overdue</div>
+            </div>
+        </div>
+
+        <!-- Completion Rate -->
+        <div class="completion-bar-wrap">
+            <span class="completion-bar-label">
+                Completion Rate
+            </span>
+            <div class="completion-bar-track">
+                <div class="completion-bar-fill"
+                     style="width:@Model.CompletionRate%">
+                </div>
+            </div>
+            <span class="completion-bar-value">
+                @Model.CompletionRate%
+            </span>
+        </div>
+
+        <!-- Task Table -->
+        <div class="report-table-card">
+            <div class="report-table-header">
+                <h6>
+                    <i class="fas fa-list-check"></i>
+                    Task Details
+                </h6>
+                <span class="task-count-badge">
+                    @Model.TaskDetails.Count tasks
+                </span>
+            </div>
+
+            @Html.Partial("_ReportTaskTable", Model.TaskDetails)
+        </div>
+
+    </div>
+
+    <!-- RIGHT: Actions Panel -->
+    <div>
+        <div class="report-side-panel">
+            <div class="report-side-header">
+                <i class="fas fa-gavel"></i> Decision
+            </div>
+            <div class="report-side-body">
+
+                @if (isPending)
+                {
+                    
+                    using (Html.BeginForm("ApproveReport","Employee",
+                        new { id = Model.ReportId }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit"
+                                class="report-action-btn approve"
+                                onclick="return confirm(
+                                    'Approve this report?')">
+                            <i class="fas fa-check"></i>
+                            Approve Report
+                        </button>
+                    }
+
+                    <hr style="border-color:var(--border-subtle);
+                               margin:0.75rem 0;" />
+
+                    
+                    <button type="button"
+                            class="report-action-btn download"
+                            style="color:var(--danger);
+                                   border-color:#FECACA;"
+                            onclick="toggleRejectForm()">
+                        <i class="fas fa-times"></i>
+                        Reject Report
+                    </button>
+
+                    <div id="rejectForm"
+                         class="reject-form-wrap"
+                         style="display:none; margin-top:0.75rem;">
+                        @using (Html.BeginForm("RejectReport","Employee",
+                            FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="hidden"
+                                   name="ReportId"
+                                   value="@Model.ReportId" />
+                            <label style="font-size:0.72rem;
+                                          font-weight:700;
+                                          color:#991B1B;
+                                          text-transform:uppercase;
+                                          letter-spacing:0.5px;
+                                          display:block;
+                                          margin-bottom:0.4rem;">
+                                Reason for Rejection
+                            </label>
+                            <textarea name="RejectionReason"
+                                      rows="3"
+                                      placeholder="Explain why this report is being rejected..."
+                                      required></textarea>
+                            <button type="submit"
+                                    class="btn-reject-submit">
+                                <i class="fas fa-times me-1"></i>
+                                Confirm Rejection
+                            </button>
+                        }
+                    </div>
+
+                    <hr style="border-color:var(--border-subtle);
+                               margin:0.75rem 0;" />
+                }
+
+                <a href="@Url.Action("DownloadReportPdf","Employee",
+                       new { id = Model.ReportId })"
+                   class="report-action-btn download">
+                    <i class="fas fa-download"></i>
+                    Download PDF
+                </a>
+
+                <a href="@Url.Action("PendingReport","Employee")"
+                   class="report-action-btn back">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Reports
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section PageScripts {
+    <script>
+        function toggleRejectForm() {
+            var form = document.getElementById('rejectForm');
+            form.style.display =
+                form.style.display === 'none' ? '' : 'none';
+        }
+    </script>
+}

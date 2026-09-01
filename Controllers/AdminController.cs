@@ -929,40 +929,6 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
             return View(history);
         }
 
-
-
-        // ══════════════════════════════════════════
-        // PENDING REPORTS
-        // ══════════════════════════════════════════
-
-        public ActionResult PendingReports()
-        {
-            ViewBag.PageTitle = "Pending Approvals";
-            ViewBag.PageSubtitle = "Review and approve submitted reports.";
-
-            var reports = _db.Reports
-                .Where(r => r.Status == ReportStatus.Submitted)
-                .OrderBy(r => r.SubmittedDate)
-                .ToList()
-                .Select(r => new ReportListItemViewModel
-                {
-                    ReportId = r.ReportId,
-                    PlantId = r.PlantId,
-                    PlantName = r.Plant?.PlantName,
-                    EmpName = r.User?.UserName ?? "-",
-                    EmpNumber = r.User?.EmpID ?? "-",
-                    ReportType = r.ReportType,
-                    PeriodStart = r.PeriodStart,
-                    PeriodEnd = r.PeriodEnd,
-                    Status = r.Status,
-                    CreatedDate = r.CreatedDate,
-                    SubmittedDate = r.SubmittedDate
-                })
-                .ToList();
-
-            return View(reports);
-        }
-
         // ══════════════════════════════════════════
         // APPROVED REPORTS
         // ══════════════════════════════════════════
@@ -1066,59 +1032,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
 
             return View(vm);
         }
-
-        // ══════════════════════════════════════════
-        // APPROVE REPORT — POST
-        // ══════════════════════════════════════════
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ApproveReport(int id)
-        {
-            var report = _db.Reports.Find(id);
-            if (report == null) return HttpNotFound();
-
-            report.Status = ReportStatus.Approved;
-            report.ApprovedDate = DateTime.Now;
-            report.RejectionReason = null;
-            report.LastModifiedDate = DateTime.Now;
-            _db.SaveChanges();
-
-            TempData["SuccessMessage"] =
-                $"{report.User?.UserName}'s report approved!";
-            return RedirectToAction("PendingReports");
-        }
-
-        // ══════════════════════════════════════════
-        // REJECT REPORT — POST
-        // ══════════════════════════════════════════
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RejectReport(ApproveReportViewModel model)
-        {
-            var report = _db.Reports.Find(model.ReportId);
-            if (report == null) return HttpNotFound();
-
-            if (string.IsNullOrWhiteSpace(model.RejectionReason))
-            {
-                TempData["ErrorMessage"] = 
-                    "Please provide a rejection reason.";
-                return RedirectToAction(
-                    "ReviewReport", new { id = model.ReportId }
-                );
-            }
-
-            report.Status = ReportStatus.Rejected;
-            report.RejectionReason = model.RejectionReason;
-            report.LastModifiedDate = DateTime.Now;
-            _db.SaveChanges();
-
-            TempData["SuccessMessage"] = 
-                $"{report.User?.UserName}'s report rejected.";
-            return RedirectToAction("PendingReports");
-        }
-
+        
         // ══════════════════════════════════════════
         // DOWNLOAD REPORT PDF (admin)
         // ══════════════════════════════════════════
