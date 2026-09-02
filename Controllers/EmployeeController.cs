@@ -9,6 +9,7 @@ using EHS_PORTAL.Areas.ESTAFF.Models.Data;
 using EHS_PORTAL.Areas.ESTAFF.Models.ViewModels;
 using EHS_PORTAL.Areas.ESTAFF.Services;
 using Microsoft.Win32;
+using System.ComponentModel;
 
 namespace EHS_PORTAL.Areas.ESTAFF.Controllers
 {
@@ -1177,10 +1178,15 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
         public ActionResult ApproveReport(int id)
         {
             var report = _db.Reports.Find(id);
-            var approvalRecord = _db.ReportApprovals.FirstOrDefault(ra => ra.ReportId == id);
+            var approvalRecord = _db.ReportApprovals.Where(ra => ra.ReportId == id).OrderByDescending(ra => ra.ApprovalId).FirstOrDefault();
             var userId = User.Identity.GetUserId();
-            var userPlant = _db.UserPlants.FirstOrDefault(up => up.UserId == userId);
-            if (report == null || report.PlantId != userPlant.PlantId) return HttpNotFound();
+
+            var userPlant = _db.UserPlants.Where(up => up.UserId == userId).Select(up => up.PlantId).Distinct().ToList();
+
+            if (report == null || !report.PlantId.HasValue || !userPlant.Contains(report.PlantId.Value))
+            {
+                return HttpNotFound();
+            }
 
             report.Status = ReportStatus.Approved;
             report.ApprovedDate = DateTime.Now;
@@ -1189,6 +1195,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
 
             if (approvalRecord != null)
             {
+                approvalRecord.ApproverId = userId;
                 approvalRecord.ApprovalStatus = ApprovalStatus.Approved;
                 approvalRecord.DateApproved = DateTime.Now;
             }
@@ -1209,10 +1216,15 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
         public ActionResult RejectReport(ApproveReportViewModel model)
         {
             var report = _db.Reports.Find(model.ReportId);            
-            var approvalRecord = _db.ReportApprovals.FirstOrDefault(ra => ra.ReportId == model.ReportId);
+            var approvalRecord = _db.ReportApprovals.Where(ra => ra.ReportId == model.ReportId).OrderByDescending(ra => ra.ApprovalId).FirstOrDefault();
             var user = User.Identity.GetUserId();
+            var userPlant = _db.UserPlants.Where(up => up.UserId == user).Select(up => up.PlantId).Distinct().ToList();
 
-            if (report == null) return HttpNotFound();
+            if (report == null || !report.PlantId.HasValue || !userPlant.Contains(report.PlantId.Value))
+            {
+                return HttpNotFound();
+            }
+
 
             if (string.IsNullOrWhiteSpace(model.RejectionReason))
             {
@@ -1407,6 +1419,12 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
             var completed = tasks.Count(t =>
                 t.Status == TaskStatus.Complete);
 
+            var approval = _db.ReportApprovals
+                .Include(a => a.Approver)
+                .Where(a => a.ReportId == report.ReportId)
+                .OrderByDescending(a => a.ApprovalId)
+                .FirstOrDefault();
+
             var vm = new ReportDetailViewModel
             {
                 ReportId = report.ReportId,
@@ -1420,6 +1438,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
                 PeriodEnd = report.PeriodEnd,
                 Status = report.Status,
                 CreatedDate = report.CreatedDate,
+                DecidedByName = approval?.Approver?.UserName,
                 SubmittedDate = report.SubmittedDate,
                 ApprovedDate = report.ApprovedDate,
                 RejectionReason = report.RejectionReason,
@@ -1461,6 +1480,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
         public ActionResult ResubmitReport(int id)
         {
             var report = _db.Reports.Find(id);
+            var userId = User.Identity.GetUserId();
 
             // Same reasoning as ViewReport: the return is the plant's, so any
             // employee may put a rejected one back up for approval.
@@ -1472,6 +1492,16 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
             report.SubmittedDate = DateTime.Now;
             report.RejectionReason = null;
             report.LastModifiedDate = DateTime.Now;
+
+            var reportRecord = new ReportApproval
+            {
+                ReportId = report.ReportId,
+                ReporterId = userId,
+                SubmittedDate = report.SubmittedDate ?? DateTime.Now,
+                ApprovalStatus = ApprovalStatus.Pending
+            };
+
+            _db.ReportApprovals.Add(reportRecord);
             _db.SaveChanges();
 
             TempData["SuccessMessage"] = 

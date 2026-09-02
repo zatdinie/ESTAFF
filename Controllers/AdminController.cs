@@ -1061,6 +1061,12 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
             var completed = tasks.Count(t =>
                 t.Status == TaskStatus.Complete);
 
+            var approval = _db.ReportApprovals
+                .Include(a => a.Approver)
+                .Where(a => a.ReportId == report.ReportId)
+                .OrderByDescending(a => a.ApprovalId)
+                .FirstOrDefault();
+
             var vm = new ReportDetailViewModel
             {
                 ReportId = report.ReportId,
@@ -1074,6 +1080,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
                 PeriodEnd = report.PeriodEnd,
                 Status = report.Status,
                 CreatedDate = report.CreatedDate,
+                DecidedByName = approval?.Approver?.UserName,
                 SubmittedDate = report.SubmittedDate,
                 ApprovedDate = report.ApprovedDate,
                 RejectionReason = report.RejectionReason,

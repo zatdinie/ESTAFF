@@ -200,9 +200,8 @@ namespace EHS_PORTAL.Areas.ESTAFF.Services
             table.SpacingAfter = 16f;
 
             table.AddCell(PremisesCell(vm, settings));
-            table.AddCell(OfficerCell("Prepared by", settings.Sho));
-            table.AddCell(OfficerCell("Prepared by",
-                settings.PreparerFor(Text(vm.EmpName))));
+            table.AddCell(OfficerCell("Prepared by", settings.PreparerFor(Text(vm.EmpName))));
+            table.AddCell(OfficerCell("Prepared by", settings.VerifierFor(Text(vm.DecidedByName))));
 
             table.AddCell(ProvenanceCell(vm));
             table.AddCell(OfficerCell("Approved and Verified by",
@@ -259,8 +258,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Services
 
             AddLine(cell, "Reference", vm.Reference, true);
             AddLine(cell, "Period Covered", vm.PeriodText);
-            AddLine(cell, "Prepared For",
-                Text(vm.EmpName) + "  (" + Text(vm.EmpNumber) + ")");
+            AddLine(cell, "Prepared For", vm.PlantName);
             AddLine(cell, "Report Status", vm.Status.ToString(),
                 false, ReportStatusColor(vm.Status));
 
@@ -791,10 +789,12 @@ namespace EHS_PORTAL.Areas.ESTAFF.Services
             table.SpacingBefore = 6f;
             table.KeepTogether = true;
 
-            table.AddCell(SignatureCell("Prepared by", settings.Sho));
-            table.AddCell(Spacer());
+            
             table.AddCell(SignatureCell("Prepared by",
                 settings.PreparerFor(Text(vm.EmpName))));
+            table.AddCell(Spacer());
+            table.AddCell(SignatureCell("Prepared by",
+                settings.VerifierFor(Text(vm.DecidedByName))));
             table.AddCell(Spacer());
             table.AddCell(SignatureCell("Approved and Verified by",
                 settings.Approver));

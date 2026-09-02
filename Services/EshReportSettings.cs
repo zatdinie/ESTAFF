@@ -31,6 +31,8 @@ namespace EHS_PORTAL.Areas.ESTAFF.Services
         // ── Who verifies it ────────────────────────────────────
         public EshOfficer Approver { get; private set; }
 
+        public EshOfficer Verifier { get; private set; }
+
         // Absolute path to a letterhead image, resolved from an app-relative
         // setting. Null unless the setting is present and the file is there -
         // a logo that has been moved must not take the whole report with it.
@@ -68,6 +70,19 @@ namespace EHS_PORTAL.Areas.ESTAFF.Services
                 Name     = employeeName,
                 Position = Officer != null ? Officer.Position : null,
                 Jkkp     = Officer != null ? Officer.Jkkp : null
+            };
+        }
+
+        public EshOfficer VerifierFor(string approverName)
+        {
+            if (string.IsNullOrWhiteSpace(approverName))
+                return Verifier;
+
+            return new EshOfficer
+            {
+                Name = approverName,
+                Position = Verifier != null ? Verifier.Position : null,
+                Jkkp = Verifier != null ? Verifier.Jkkp : null
             };
         }
 

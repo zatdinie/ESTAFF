@@ -90,6 +90,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
         public ReportStatus Status { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? SubmittedDate { get; set; }
+        public string DecidedByName { get; set; }
         public DateTime? ApprovedDate { get; set; }
         public string RejectionReason { get; set; }
         public List<TaskItem> Tasks { get; set; }
