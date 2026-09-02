@@ -1469,6 +1469,13 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
                 $"{vm.PeriodStart:yyyyMMdd}_" +
                 $"{vm.PeriodEnd:yyyyMMdd}.pdf";
 
+            Response.AppendHeader("Content-Disposition",
+                new System.Net.Mime.ContentDisposition
+                {
+                    FileName = fileName,
+                    Inline   = true
+                }.ToString());
+
             return File(bytes, "application/pdf", fileName);
         }
 
