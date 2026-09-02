@@ -200,8 +200,8 @@ namespace EHS_PORTAL.Areas.ESTAFF.Services
             table.SpacingAfter = 16f;
 
             table.AddCell(PremisesCell(vm, settings));
-            table.AddCell(OfficerCell("Prepared by", settings.PreparerFor(Text(vm.EmpName))));
-            table.AddCell(OfficerCell("Prepared by", settings.VerifierFor(Text(vm.DecidedByName))));
+            table.AddCell(OfficerCell("Prepared by", settings.PreparerFor(Text(vm.EmpName),Text(vm.EmpPosition),Text(vm.EmpJkkpNo))));
+            table.AddCell(OfficerCell("Prepared by", settings.VerifierFor(Text(vm.DecidedByName),Text(vm.DecidedByPosition),Text(vm.DecidedByJkkpNo))));
 
             table.AddCell(ProvenanceCell(vm));
             table.AddCell(OfficerCell("Approved and Verified by",
@@ -790,11 +790,9 @@ namespace EHS_PORTAL.Areas.ESTAFF.Services
             table.KeepTogether = true;
 
             
-            table.AddCell(SignatureCell("Prepared by",
-                settings.PreparerFor(Text(vm.EmpName))));
+            table.AddCell(OfficerCell("Prepared by", settings.PreparerFor(Text(vm.EmpName),Text(vm.EmpPosition),Text(vm.EmpJkkpNo))));
             table.AddCell(Spacer());
-            table.AddCell(SignatureCell("Prepared by",
-                settings.VerifierFor(Text(vm.DecidedByName))));
+            table.AddCell(OfficerCell("Prepared by", settings.VerifierFor(Text(vm.DecidedByName),Text(vm.DecidedByPosition),Text(vm.DecidedByJkkpNo))));
             table.AddCell(Spacer());
             table.AddCell(SignatureCell("Approved and Verified by",
                 settings.Approver));

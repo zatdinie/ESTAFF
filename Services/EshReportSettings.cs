@@ -60,30 +60,29 @@ namespace EHS_PORTAL.Areas.ESTAFF.Services
         // The form names two preparers. The second is the officer who actually
         // did the work, so when the setting is left blank the report falls back
         // to the employee it was generated for rather than printing a stranger.
-        public EshOfficer PreparerFor(string employeeName)
+        public EshOfficer PreparerFor(string name, string position, string jkkpNo)
         {
-            if (Officer != null && !string.IsNullOrWhiteSpace(Officer.Name))
-                return Officer;
-
             return new EshOfficer
             {
-                Name     = employeeName,
-                Position = Officer != null ? Officer.Position : null,
-                Jkkp     = Officer != null ? Officer.Jkkp : null
+                Name     = Pick(name, Officer?.Name),
+                Position = Pick(position, Officer?.Position),
+                Jkkp     = Pick(jkkpNo, Officer?.Jkkp)
             };
         }
 
-        public EshOfficer VerifierFor(string approverName)
+        public EshOfficer VerifierFor(string name, string position, string jkkpNo)
         {
-            if (string.IsNullOrWhiteSpace(approverName))
-                return Verifier;
-
             return new EshOfficer
             {
-                Name = approverName,
-                Position = Verifier != null ? Verifier.Position : null,
-                Jkkp = Verifier != null ? Verifier.Jkkp : null
+                Name = Pick(name, Verifier?.Name),
+                Position = Pick(position, Verifier?.Position),
+                Jkkp = Pick(jkkpNo, Verifier?.Jkkp)
             };
+        }
+
+        private static string Pick(string value, string fallback)
+        {
+            return string.IsNullOrWhiteSpace(value) ? fallback : value.Trim();
         }
 
         private static string Read(string key)

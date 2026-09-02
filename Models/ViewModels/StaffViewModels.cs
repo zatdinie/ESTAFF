@@ -103,5 +103,12 @@ namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
                     return "Unassigned";
             }
         }
+
+        public static string PositionLabelOrNull(Position position)
+        {
+            return position == Position.Unassigned 
+                ? null 
+                : PositionLabel(position);
+        }
     }
 }

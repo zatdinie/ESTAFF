@@ -1433,12 +1433,16 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
                 EmpName = report.User?.UserName ?? "-",
                 EmpNumber = report.User?.EmpID ?? "-",
                 EmpEmail = report.User?.Email ?? "-",
+                EmpPosition = StaffDisplay.PositionLabelOrNull(report.User?.Position ?? Position.Unassigned),
+                EmpJkkpNo = report.User?.JkkpNo,
                 ReportType = report.ReportType,
                 PeriodStart = report.PeriodStart,
                 PeriodEnd = report.PeriodEnd,
                 Status = report.Status,
                 CreatedDate = report.CreatedDate,
                 DecidedByName = approval?.Approver?.UserName,
+                DecidedByPosition = StaffDisplay.PositionLabelOrNull(approval?.Approver?.Position ?? Position.Unassigned),
+                DecidedByJkkpNo = approval?.Approver?.JkkpNo,
                 SubmittedDate = report.SubmittedDate,
                 ApprovedDate = report.ApprovedDate,
                 RejectionReason = report.RejectionReason,
@@ -1476,7 +1480,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
                     Inline   = true
                 }.ToString());
 
-            return File(bytes, "application/pdf", fileName);
+            return File(bytes, "application/pdf");
         }
 
         // ===========

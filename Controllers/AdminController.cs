@@ -1119,7 +1119,7 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
                     Inline   = true
                 }.ToString());
 
-            return File(bytes, "application/pdf", fileName);
+            return File(bytes, "application/pdf");
         }
 
         // ══════════════════════════════════════════

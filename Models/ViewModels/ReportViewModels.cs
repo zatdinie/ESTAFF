@@ -84,6 +84,8 @@ namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
         public string EmpName { get; set; }
         public string EmpNumber { get; set; }
         public string EmpEmail { get; set; }
+        public string EmpPosition { get; set; }
+        public string EmpJkkpNo { get; set; }
         public ReportType ReportType { get; set; }
         public DateTime PeriodStart { get; set; }
         public DateTime PeriodEnd { get; set; }
@@ -91,6 +93,8 @@ namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
         public DateTime CreatedDate { get; set; }
         public DateTime? SubmittedDate { get; set; }
         public string DecidedByName { get; set; }
+        public string DecidedByPosition { get; set; }
+        public string DecidedByJkkpNo { get; set; }
         public DateTime? ApprovedDate { get; set; }
         public string RejectionReason { get; set; }
         public List<TaskItem> Tasks { get; set; }
