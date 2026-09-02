@@ -68,12 +68,24 @@
 
                     <h6 class="emp-card-name">@emp.UserName</h6>
 
+                    <p class="emp-card-position">@emp.PositionName</p>
+
                     <span class="emp-card-number">
                         <i class="fas fa-id-badge"></i>
                         @emp.EmpID
                     </span>
 
                     <p class="emp-card-email">@emp.Email</p>
+
+                    @* Most staff hold no JKKP registration, so this line
+                       appears only when there is one. *@
+                    @if (!string.IsNullOrWhiteSpace(emp.JkkpNo))
+                    {
+                        <div class="emp-card-jkkp">
+                            <i class="fas fa-certificate"></i>
+                            @emp.JkkpNo
+                        </div>
+                    }
 
                     <div class="emp-card-hire">
                         <i class="fas fa-calendar-alt"></i>

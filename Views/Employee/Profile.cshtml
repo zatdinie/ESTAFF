@@ -34,6 +34,11 @@
                     </span>
                 </div>
 
+                <!-- Position -->
+                <p class="profile-position">
+                    @StaffDisplay.PositionLabel(Model.Position)
+                </p>
+
                 <!-- Email -->
                 <p class="profile-email">
                     <i class="fas fa-envelope"></i>
@@ -117,6 +122,27 @@
                 </span>
             </div>
 
+              <!-- Position -->
+            <div style="display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        padding:0.85rem 0;
+                        border-bottom:1px solid var(--border-subtle);">
+                <div style="display:flex; align-items:center;
+                            gap:0.6rem; font-size:0.78rem;
+                            font-weight:600; color:var(--text-muted);">
+                    <i class="fas fa-user-tie"
+                       style="color:var(--primary); width:14px;
+                              text-align:center; font-size:0.75rem;">
+                    </i>
+                    Position
+                </div>
+                <span style="font-size:0.845rem; font-weight:600;
+                             color:var(--text-primary);">
+                    @StaffDisplay.PositionLabel(Model.Position)
+                </span>
+            </div>
+
             <!-- Employee Number -->
             <div style="display:flex;
                         justify-content:space-between;
@@ -137,6 +163,33 @@
                     @(Model.EmpID ?? "—")
                 </span>
             </div>
+
+            <!-- JKKP No -->
+            @* Most staff hold no JKKP registration, so this row appears only
+               when there is one. An empty row on a list of rows reads as a
+               missing answer rather than as "not applicable". *@
+            @if (!string.IsNullOrWhiteSpace(Model.JkkpNo))
+            {
+                <div style="display:flex;
+                            justify-content:space-between;
+                            align-items:center;
+                            padding:0.85rem 0;
+                            border-bottom:1px solid var(--border-subtle);">
+                    <div style="display:flex; align-items:center;
+                                gap:0.6rem; font-size:0.78rem;
+                                font-weight:600; color:var(--text-muted);">
+                        <i class="fas fa-certificate"
+                           style="color:var(--primary); width:14px;
+                                  text-align:center; font-size:0.75rem;">
+                        </i>
+                        JKKP No
+                    </div>
+                    <span style="font-size:0.845rem; font-weight:600;
+                                 color:var(--text-primary);">
+                        @Model.JkkpNo
+                    </span>
+                </div>
+            }
 
             <!-- Email -->
             <div style="display:flex;

@@ -96,6 +96,8 @@ namespace EHS_PORTAL.Areas.ESTAFF.Controllers
                     UserName           = u.UserName,
                     EmpID              = u.EmpID,
                     Email              = u.Email,
+                    Position           = u.Position,
+                    JkkpNo             = u.JkkpNo,
                     IsActive           = u.IsActive,
                     HireDate           = u.HireDate ?? DateTime.Now,
                     TotalTasks         = _db.TaskItems

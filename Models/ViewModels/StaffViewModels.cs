@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using EHS_PORTAL.Areas.ESTAFF.Models.Data;
 
 namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
 {
@@ -38,6 +39,9 @@ namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
         public string UserName { get; set; }
         public string EmpID { get; set; }
         public string Email { get; set; }
+        public Position Position { get; set; }
+        public string PositionName => StaffDisplay.PositionLabel(Position);
+        public string JkkpNo { get; set; }
         public bool IsActive { get; set; }
         public DateTime HireDate { get; set; }
         public int TotalTasks { get; set; }
@@ -78,5 +82,26 @@ namespace EHS_PORTAL.Areas.ESTAFF.Models.ViewModels
         public int PendingTasks { get; set; }
         public int OverdueTasks { get; set; }
         public decimal OnTimeRate { get; set; }
+    }
+
+    // Helper class for employee position
+    public static class StaffDisplay
+    {
+        public static string PositionLabel(Position position)
+        {
+            switch (position)
+            {
+                case Position.EshManager:
+                    return "ESH Manager";
+                case Position.EshEngineer:
+                    return "ESH Engineer";
+                case Position.ShoOfficer:
+                    return "SHO Officer";
+                case Position.EshOfficer:
+                    return "ESH Officer";
+                default:
+                    return "Unassigned";
+            }
+        }
     }
 }

@@ -1231,6 +1231,18 @@
     letter-spacing: -0.3px;
 }
 
+/* The job title under the name. Small caps in the accent colour so it
+   reads as a role rather than a second line of the name, and is not
+   mistaken for the muted email line below it. */
+.profile-position {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin: 0.15rem 0 0.6rem;
+}
+
 .profile-emp-number {
     display: inline-flex;
     align-items: center;
